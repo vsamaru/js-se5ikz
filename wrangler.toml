@@ -1,0 +1,21 @@
+name = "jsb"
+type = "javascript"
+
+workers_dev = true
+compatibility_date = "2021-12-26"
+
+[[kv_namespaces]]
+binding = "G"
+id = "91b94bbb376942dc93f770e11ebe3a04"
+
+ [vars]
+ HOOK_PATH = "/"
+ TELEGRAM_API_TOKEN = "2037334287:AAEa8upEdHhE0q5-cr646dnDWUqrgA4rNd8"
+ TOKEN = "2037334287:AAEa8upEdHhE0q5-cr646dnDWUqrgA4rNd8"
+ ALLOWED_CHAT_IDS = "5043676235,-1001570134152,-1001739992180"
+
+[build]
+command = ""
+[build.upload]
+format = "modules"
+main = "./index.mjs"
