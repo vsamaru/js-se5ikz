@@ -1,0 +1,134 @@
+<html lang="en">
+
+<head>
+  <title>PWA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase.js"></script>
+  <script src="./index.js"></script>
+</head>
+<style>
+  html {
+    font-family: monospace;
+    background-image: radial-gradient(#ddd 1px, transparent 0), radial-gradient(#ddd 1px, transparent 0);
+    background-position: 0 0, 25px 25px;
+    justify-content: center;
+    background-size: 50px 50px;
+    font-size: 12px;
+  }
+
+  div {
+    font-family: monospace;
+  }
+
+  pre {
+    background-color: linen;
+  }
+
+  code {
+    background-color: #9aff55;
+  }
+
+  mark {
+    background-color: palegreen;
+
+  }
+
+  mark2 {
+    background-color: skyblue;
+
+  }
+
+  mark1 {
+    background-color: coral;
+
+  }
+</style>
+
+<body>
+
+  <p id="demo2"></p>
+
+
+
+  <script>
+    var config = {
+    apiKey: "AIzaSyC9XbSODqvt16w24GYIlHs6fk7yObrgyF8",
+    authDomain: "v-vv-v.firebaseapp.com",
+    databaseURL: "https://v-vv-v-default-rtdb.firebaseio.com"
+        }
+        firebase.initializeApp(config)
+        var database = firebase.database()
+        database.ref().on("child_added", function(snapshot, prevChildKey) {
+            var newPost = snapshot.val()
+           
+           document.querySelector('#app').innerHTML = "<mark>ADD</mark>    <pre>" + JSON.stringify(newPost, null, 4) + "</pre>" + document.querySelector('#app').innerHTML
+            
+        })
+                database.ref().on("child_changed", function(snapshot, prevChildKey) {
+            var newPost = snapshot.val()
+           document.querySelector('#app').innerHTML = "<mark2>CHANGE</mark2>    <pre>" + JSON.stringify(newPost, null, 4) + "</pre>" + document.querySelector('#app').innerHTML
+            
+        })
+                               database.ref().on("child_removed", function(snapshot, prevChildKey) {
+            var newPost = snapshot.val()
+            
+           document.querySelector('#app').innerHTML = "<mark1>REMOVE</mark1>    <pre>" + JSON.stringify(newPost, null, 4) + "</pre>" + document.querySelector('#app').innerHTML
+            
+        })
+       
+  </script>
+   
+  <button onclick="deleteItems()">Delete items</button>
+  <button onclick="displayItems()">Display items</button>
+   <p id="app">
+  <div class="navbar" id="navbar">
+    <a href="#home" class="active">HOME</a>
+    <a href="#add" onclick="createItems()">ADD</a>
+    <a href="#let" onclick="displayItems()">LET</a>
+    <a href="#del" onclick="deleteItems()">DEL</a>
+    <a href="./404.html">404</a>
+    <a href="#contact" onclick="wr()">CONTACT</a>
+    <a href="#about" onclick="writeUserData('userId', 'name', 'email', 'imageUrl')">ABOUT</a>
+    <i id="share">
+                SHARE
+            </i>
+  </div>
+
+
+
+  <script>
+    var rand = () => {
+      var x =  String(~~(Math.random() * 809) + 1).padStart(3, '0')
+      return {img:`https://p-o.surge.sh/${"i"}/${x}.png`,id:x,day:Date.now()}
+
+    }
+
+
+
+
+        function displayItems() {
+            localStorage.last = ((Date.now()/1000)-localStorage.editorLastConnected).toFixed(2)
+
+          var rr = rand()
+            localStorage.setItem(rr.id, JSON.stringify(rr).replace(/"/g,"'"))
+
+             var a = '<pre>' +JSON.stringify(localStorage,null,4)+'</pre></br>'
+            a += document.getElementById("app").innerHTML || ""
+                           
+
+              document.getElementById("app").innerHTML = a
+            // for (i = 0; i < localStorage.length; i++) {
+
+            // }
+        }
+
+                function deleteItems() {
+            localStorage.clear()
+            return displayItems()
+        }
+  </script>
+ 
+</body>
+
+</html>
